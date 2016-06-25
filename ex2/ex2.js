@@ -1,5 +1,3 @@
-/* Don't touch this part! */
-// **************************************
 function fakeAjax(url,cb) {
   var fake_responses = {
     "file1": "The first text",
@@ -18,12 +16,11 @@ function fakeAjax(url,cb) {
 function output(text) {
   console.log(text);
 }
+
 // **************************************
-// Use Promises
 
 function getFile(file) {
-  //Fill this in
+  //fill this in
 }
 
-// request all files at once in "parallel"
-// ???
+//make 3 requests at the same time

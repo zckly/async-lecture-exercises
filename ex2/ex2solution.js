@@ -18,15 +18,32 @@ function output(text) {
 }
 
 // **************************************
-// The old-n-busted callback way
 
 function getFile(file) {
-  fakeAjax(file,function(text){
-    // what do we do here?
+  return new Promise(function(resolve){
+    fakeAjax(file,resolve);
   });
 }
 
-// request all files at once in "parallel"
-getFile("file1");
-getFile("file2");
-getFile("file3");
+// Request all files at once in
+// "parallel" via `getFile(..)`.
+var p1 = getFile("file1");
+var p2 = getFile("file2");
+var p3 = getFile("file3");
+
+// Render as each one finishes,
+// but only once previous rendering
+// is done.
+p1
+.then(output)
+.then(function(){
+  return p2;
+})
+.then(output)
+.then(function(){
+  return p3;
+})
+.then(output)
+.then(function(){
+  output("Complete!");
+});
